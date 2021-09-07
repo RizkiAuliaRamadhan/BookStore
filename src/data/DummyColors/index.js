@@ -1,0 +1,1 @@
+export const dummyColors = ['#FDEFEF', '#B5EAEA', '#C9E4C5','#CDF0EA', '#FFBCBC','#DEEDF0', '#EDFFEC', '#ECE2E1', '#C9CBFF', '#FFE5B9']

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="25px" height="25px" viewBox="0 0 25 25" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path d="M0 0L25 0L25 25L0 25L0 0Z" id="path_1" />
+    <clipPath id="mask_1">
+      <use xlink:href="#path_1" />
+    </clipPath>
+  </defs>
+  <g id="Cancel-icon">
+    <path d="M0 0L25 0L25 25L0 25L0 0Z" id="Background" fill="none" fill-rule="evenodd" stroke="none" />
+    <g clip-path="url(#mask_1)">
+      <path d="M20.8333 10.4167C20.8333 16.1693 16.1693 20.8333 10.4167 20.8333C4.66406 20.8333 0 16.1693 0 10.4167C0 4.66406 4.66406 0 10.4167 0C16.1693 0 20.8333 4.66406 20.8333 10.4167L20.8333 10.4167Z" transform="translate(2.083374 2.0833282)" id="Shape" fill="#F44336" fill-rule="evenodd" stroke="none" />
+      <path d="M7.36458 0L8.8375 1.47292L1.47292 8.8375L0 7.36458L7.36458 0L7.36458 0Z" transform="translate(8.081299 8.081253)" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+      <path d="M8.8375 7.36458L7.36458 8.8375L0 1.47292L1.47292 0L8.8375 7.36458L8.8375 7.36458Z" transform="translate(8.081299 8.081253)" id="Shape" fill="#FFFFFF" fill-rule="evenodd" stroke="none" />
+    </g>
+  </g>
+</svg>
