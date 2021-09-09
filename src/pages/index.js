@@ -13,6 +13,8 @@ import EditProfile from './EditProfile';
 import ChangePassword from './ChangePassword';
 import Histori from './Histori';
 import Login from './Login';
+import SignIn from './SignIn';
+import SignIn2 from './SignIn2';
 
 export {
   HomeScreen,
@@ -29,5 +31,7 @@ export {
   EditProfile,
   ChangePassword,
   Histori,
-  Login
+  Login,
+  SignIn,
+  SignIn2
 };
