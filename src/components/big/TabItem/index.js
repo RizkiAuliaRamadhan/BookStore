@@ -20,9 +20,6 @@ const TabItem = ({isFocused, onLongPress, onPress, label}) => {
     if (label === 'ListBooks') {
       return isFocused ? <IconBooksActive /> : <IconBooks />;
     }
-    if (label === 'Wishlist') {
-      return isFocused ? <IconHeartActive /> : <IconHeart />;
-    }
     if (label === 'Profile') {
       return isFocused ? <IconAccountActive /> : <IconAccount />;
     }

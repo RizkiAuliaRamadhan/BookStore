@@ -2,7 +2,6 @@ import HomeScreen from '../pages/Home';
 import SplashScreen from '../pages/Splash';
 import LoginScreen from './Login';
 import ProfileScreen from './Profile';
-import WishlistScreen from './Wishlist';
 import ListBooksScreen from './ListBooks';
 import BookDetail from './BookDetail';
 import AddCart from './BookDetail/addCart';
@@ -20,7 +19,6 @@ export {
   HomeScreen,
   SplashScreen,
   LoginScreen,
-  WishlistScreen,
   ProfileScreen,
   ListBooksScreen,
   BookDetail,
