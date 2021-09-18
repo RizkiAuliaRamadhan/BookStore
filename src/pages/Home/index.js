@@ -1,5 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, ScrollView, StyleSheet, Text, View} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '../../actions/UserActions';
 import {
   BannerSlider,
   HeaderComponent,

@@ -2,23 +2,27 @@ import React from 'react';
 import {
   Image,
   StyleSheet,
-  TouchableOpacity,
   View,
   Text,
   ScrollView,
 } from 'react-native';
 import { CardProfile, Tombol } from '../../small';
 import { Colors, fonts, responsiveHeight, responsiveWidth } from '../../../utils';
+import { Avatar, Stack } from 'native-base';
+import { slice } from 'lodash';
 
 const Profile = ({ profile, menuList, navigation }) => {
   return (
     <View style={styles.container}>
-      {profile.map(data => {
+      {profile.map((data, index) => {
+        const stringAfterSpace = data.nama.indexOf(" ")
         return (
-          <View key={data.id} style={{ width: '100%' }}>
-            <View style={styles.wrapperImage}>
-              <Image source={data.avatar} style={styles.image} />
-            </View>
+          <View key={index} style={{ width: '100%' }}>
+            <Stack alignItems="center">
+              <Avatar size="2xl" marginTop={-16} source={data.avatar ? {uri: data.avatar} : false} _text={{fontSize: 40,}} flexDirection="row" >
+                {slice(data.nama,0,1)}{stringAfterSpace === -1 ? '': slice(data.nama, stringAfterSpace+1, stringAfterSpace+2 )}
+              </Avatar>
+            </Stack>
             <View style={{ alignItems: 'center' }}>
               <Text style={styles.nama}>{data.nama}</Text>
             </View>
@@ -53,15 +57,6 @@ const styles = StyleSheet.create({
     borderTopStartRadius: 20,
     borderTopEndRadius: 20,
     alignItems: 'center',
-  },
-  wrapperImage: {
-    marginTop: -75,
-    alignItems: 'center',
-  },
-  image: {
-    width: 150,
-    height: 150,
-    borderRadius: 50,
   },
   nama: {
     fontFamily: fonts.primary.bold,

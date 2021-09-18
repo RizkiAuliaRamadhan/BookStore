@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, TextInput, View } from 'react-native'
 import { Colors, fonts } from '../../../utils'
 
-const Input = ({ label, onChangeText, value, textArea, line, secureTextEntry = false, keyboardType = 'default' }) => {
+const Input = ({ label, onChangeText, value, textArea, line, secureTextEntry = false, keyboardType = 'default', editTable = true }) => {
     if (textArea) {
         return (
             <View style={styles.inputWrapper}>
@@ -14,7 +14,7 @@ const Input = ({ label, onChangeText, value, textArea, line, secureTextEntry = f
         return (
             <View style={styles.inputWrapper}>
                 <Text style={styles.text}>{label} :</Text>
-                <TextInput onChangeText={onChangeText} value={value} style={styles.input} secureTextEntry={secureTextEntry} keyboardType={keyboardType} />
+                <TextInput onChangeText={onChangeText} value={value} style={styles.input} secureTextEntry={secureTextEntry} keyboardType={keyboardType} editable = {editTable} />
             </View>
         )
     }

@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { Colors, fonts, formatNumber, responsiveWidth } from '../../utils';
-import { CardAlamat, Jarak, Tombol, Select } from '../../components';
+import { CardAlamat, Jarak, Tombol } from '../../components';
 import { dummyProfile } from '../../data';
 
 const CheckOut = ({ navigation }) => {
@@ -50,7 +50,7 @@ const CheckOut = ({ navigation }) => {
         </View>
         <Jarak height={20} />
         <View style={styles.kurir}>
-          <Select label="Pilih Ekspedisi" items={ekspedisi} setItems={setEkspedisi} value={valueEkspedisi} setValue={setValueEkspedisi} width='100%' />
+          {/* <Select label="Pilih Ekspedisi" items={ekspedisi} setItems={setEkspedisi} value={valueEkspedisi} setValue={setValueEkspedisi} width='100%' /> */}
         </View>
         <Jarak height={10} />
         <Text style={styles.text}>Biaya Ongkir : </Text>

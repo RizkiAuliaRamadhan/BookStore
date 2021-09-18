@@ -1,32 +1,66 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {responsiveWidth, Colors, fonts} from '../../../utils';
+import {responsiveWidth, Colors, fonts, clearStorage} from '../../../utils';
 import Jarak from '../Jarak';
+import auth from '@react-native-firebase/auth';
+import {ModalAlert} from '..';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginUser, registerUser} from '../../../actions/AuthAction';
 
 const CardProfile = ({nama, icon1, icon2, halaman, navigation}) => {
+  const [open, setOpen] = useState(false);
+
+  const dispatch = useDispatch();
+
   const onButtonPress = () => {
-    if(halaman === "editProfile"){
-      navigation.navigate("EditProfile")
+    if (halaman === 'editProfile') {
+      navigation.navigate('EditProfile');
     }
-    if(halaman === "changePassword"){
-      navigation.navigate("ChangePassword")
+    if (halaman === 'changePassword') {
+      navigation.navigate('ChangePassword');
     }
-    if(halaman === "history"){
-      navigation.navigate("Histori")
+    if (halaman === 'history') {
+      navigation.navigate('Histori');
     }
-    if(halaman === "signout"){
-      navigation.navigate("Login")
+    if (halaman === 'signout') {
+      auth()
+        .signOut()
+        .then(() => {
+          clearStorage();
+          dispatch(registerUser(false, false));
+          dispatch(loginUser(false, false));
+          setOpen(true);
+          setTimeout(() => {
+            navigation.replace('Login');
+          }, 1500);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
-  }
+  };
   return (
-    <TouchableOpacity style={styles.container} onPress={() => {onButtonPress()}}>
-      <View style={styles.wrapp1}>
-        {icon1}
-        <Jarak width={10} />
-        <Text style={styles.text}>{nama}</Text>
-      </View>
-      <View>{icon2}</View>
-    </TouchableOpacity>
+    <View>
+      <TouchableOpacity
+        style={styles.container}
+        onPress={() => {
+          onButtonPress();
+        }}>
+        <View style={styles.wrapp1}>
+          {icon1}
+          <Jarak width={10} />
+          <Text style={styles.text}>{nama}</Text>
+        </View>
+        <View>{icon2}</View>
+      </TouchableOpacity>
+      <ModalAlert
+        open={open}
+        setOpen={setOpen}
+        title="Selamat anda berhasil SignOut"
+        textBody="Tunggu Sebentar"
+        loading={true}
+      />
+    </View>
   );
 };
 
@@ -57,8 +91,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  text:{
-      fontFamily: fonts.primary.semibold,
-      fontSize: 12
-  }
+  text: {
+    fontFamily: fonts.primary.semibold,
+    fontSize: 12,
+  },
 });

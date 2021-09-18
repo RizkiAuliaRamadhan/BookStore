@@ -1,22 +1,81 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {IconBook2, IconLogo} from '../../assets';
-import {Input, Jarak, Select, Tombol} from '../../components/small';
+import {useDispatch, useSelector} from 'react-redux';
+import {getProvinsiList, getKotaList} from '../../actions/RajaOngkirActions';
+import {
+  Input,
+  Jarak,
+  Tombol,
+  Dropdown,
+  ModalAlert,
+} from '../../components/small';
 import {Colors, fonts, responsiveWidth} from '../../utils';
+import {registerUser} from '../../actions/AuthAction';
 
-const SignIn2 = ({navigation}) => {
+const SignIn2 = ({route, navigation}) => {
+  const dataSign1 = route.params.data;
   const [Alamat, setAlamat] = useState(null);
-  const [kota, setKota] = useState([
-    {label: 'Banjarnegara', value: 'banjarnegara'},
-    {label: 'Cilacap', value: 'cilacap'},
-  ]);
-  const [provinsi, setProvinsi] = useState([
-    {label: 'Jawa Tengah', value: 'jawaTengah'},
-    {label: 'Jakarta', value: 'jakarta'},
-  ]);
 
-  const [valueKota, setValueKota] = useState(null);
-  const [valueProvinsi, setValueProvinsi] = useState(null);
+  const [provinsi, setProvinsi] = useState('');
+  const [kota, setKota] = useState('');
+
+  const globalProvinsi = useSelector(
+    state => state.RajaOngkirReducer.getProvinsiResult,
+  );
+
+  const globalKota = useSelector(
+    state => state.RajaOngkirReducer.getKotaResult,
+  );
+
+  const registerResult = useSelector(state => state.AuthReducer.authResult);
+  const registerLoading = useSelector(state => state.AuthReducer.authLoading);
+
+  const dispatch = useDispatch();
+
+  const getKota = provinsi_id => {
+    setProvinsi(provinsi_id);
+    dispatch(getKotaList(provinsi_id));
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [title, setTitle] = useState('');
+  const [textBody, setTextBody] = useState('');
+  const [success, setSuccess] = useState('success');
+
+  const register = () => {
+    if (Alamat && provinsi && kota) {
+      const datas = {
+        nama: dataSign1.nama,
+        email: dataSign1.email,
+        hp: dataSign1.hp,
+        alamat: Alamat,
+        kota,
+        provinsi,
+      };
+      // auth firebase
+      dispatch(registerUser(datas, dataSign1.password));
+      // alert berhasil mendaftar
+      setTitle('Berhasil');
+      setTextBody('Selamat Anda Berhasil daftar !!');
+      setSuccess('success');
+      setIsOpen(true);
+      // redirect ke mainApp
+      setTimeout(() => {
+        navigation.replace("BottomTab")
+      }, 1500);
+    } else {
+      setTitle('Gagal');
+      setTextBody('Form harus diisi !!');
+      setSuccess('error');
+      setIsOpen(true);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(getProvinsiList());
+  }, []);
+
+
   return (
     <View style={styles.container}>
       <View style={styles.back}>
@@ -41,28 +100,41 @@ const SignIn2 = ({navigation}) => {
           textArea={true}
           line={5}
         />
-        <View style={styles.row}>
-          <Select
-            label="Provinsi"
-            items={provinsi}
-            setItems={setProvinsi}
-            value={valueProvinsi}
-            setValue={setValueProvinsi}
-            width={responsiveWidth(160)}
-          />
-          <Select
-            label="Kota / Kabupaten"
-            items={kota}
-            setItems={setKota}
-            value={valueKota}
-            setValue={setValueKota}
-            width={responsiveWidth(160)}
-          />
-        </View>
+        <Dropdown
+          label="Provinsi"
+          placeholder="Pilih --"
+          datas={globalProvinsi}
+          onValueChange={value => {
+            getKota(value);
+          }}
+          selectedValue={provinsi}
+        />
+        <Dropdown
+          label="Kota"
+          placeholder="Pilih --"
+          datas={globalKota}
+          onValueChange={value => {
+            setKota(value);
+          }}
+          selectedValue={kota}
+          isDisabled={provinsi !== '' ? false : true}
+        />
         <Jarak height={20} />
-        <TouchableOpacity style={styles.tombol}>
+        <TouchableOpacity
+          style={styles.tombol}
+          onPress={() => {
+            register();
+          }}>
           <Text style={styles.textTombol}>Daftar</Text>
         </TouchableOpacity>
+        <ModalAlert
+          open={isOpen}
+          setOpen={setIsOpen}
+          title={title}
+          textBody={textBody}
+          success={success}
+          loading={registerLoading}
+        />
       </View>
     </View>
   );

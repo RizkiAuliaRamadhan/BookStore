@@ -1,7 +1,7 @@
+import {ScrollView} from 'native-base';
 import React, {useState} from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {IconBook2, IconLogo} from '../../assets';
-import {Input, Jarak, Tombol} from '../../components/small';
+import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
+import {Input, Jarak, ModalAlert, Tombol} from '../../components/small';
 import {Colors, fonts, responsiveWidth} from '../../utils';
 
 const SignIn = ({navigation}) => {
@@ -10,7 +10,37 @@ const SignIn = ({navigation}) => {
   const [Hp, setHp] = useState(null);
   const [password, setPassword] = useState(null);
   const [konfirmasiPassword, setKonfirmasiPassword] = useState(null);
-  console.log(Nama);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [title, setTitle] = useState('');
+  const [textBody, setTextBody] = useState('');
+  const [success, setSuccess] = useState('success');
+
+  const onContinue = () => {
+    if (Nama && Email && Hp && password && konfirmasiPassword) {
+      if (password !== konfirmasiPassword) {
+        setTitle('Gagal');
+        setTextBody('Password dan Konfirmasi Password Harus Sama !!');
+        setSuccess('error');
+        setIsOpen(true);
+      } else {
+        navigation.navigate('SignIn2', {
+          data: {
+            nama: Nama,
+            email: Email,
+            hp: Hp,
+            password
+          }
+        });
+      }
+    } else {
+      setTitle('Gagal');
+      setTextBody('Form harus diisi !!');
+      setSuccess('error');
+      setIsOpen(true);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.back}>
@@ -22,57 +52,67 @@ const SignIn = ({navigation}) => {
           onPress={() => navigation.goBack()}
         />
       </View>
-      <Text style={styles.judul}>Daftar</Text>
-      <Text style={styles.judul}>Isi Data Diri Anda</Text>
-      <Jarak height={20} />
-      <View style={styles.cardSignIn}>
-        <Input
-          label="Nama"
-          onChangeText={result => {
-            setNama(result);
-          }}
-          value={Nama}
-        />
-        <Input
-          label="Email"
-          onChangeText={result => {
-            setEmail(result);
-          }}
-          value={Email}
-        />
-        <Input
-          label="No Hp"
-          onChangeText={result => {
-            setHp(result);
-          }}
-          value={Hp}
-          keyboardType="numeric"
-        />
-        <Input
-          label="Password"
-          onChangeText={result => {
-            setPassword(result);
-          }}
-          value={password}
-          secureTextEntry={true}
-        />
-        <Input
-          label="Konfirmasi Password"
-          onChangeText={result => {
-            setKonfirmasiPassword(result);
-          }}
-          value={konfirmasiPassword}
-          secureTextEntry={true}
-        />
+      <ScrollView style={{width: "100%"}} showsVerticalScrollIndicator={false}>
+        <Jarak height={50} />
+        <Text style={styles.judul}>Daftar</Text>
+        <Text style={styles.judul}>Isi Data Diri Anda</Text>
         <Jarak height={20} />
-        <TouchableOpacity
-          style={styles.tombol}
-          onPress={() => {
-            navigation.navigate('SignIn2');
-          }}>
-          <Text style={styles.textTombol}>Lanjut</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.cardSignIn}>
+          <Input
+            label="Nama"
+            onChangeText={result => {
+              setNama(result);
+            }}
+            value={Nama}
+          />
+          <Input
+            label="Email"
+            onChangeText={result => {
+              setEmail(result);
+            }}
+            value={Email}
+          />
+          <Input
+            label="No Hp"
+            onChangeText={result => {
+              setHp(result);
+            }}
+            value={Hp}
+            keyboardType="numeric"
+          />
+          <Input
+            label="Password"
+            onChangeText={result => {
+              setPassword(result);
+            }}
+            value={password}
+            secureTextEntry={true}
+          />
+          <Input
+            label="Konfirmasi Password"
+            onChangeText={result => {
+              setKonfirmasiPassword(result);
+            }}
+            value={konfirmasiPassword}
+            secureTextEntry={true}
+          />
+          <Jarak height={20} />
+          <TouchableOpacity
+            style={styles.tombol}
+            onPress={() => {
+              onContinue();
+            }}>
+            <Text style={styles.textTombol}>Lanjut</Text>
+          </TouchableOpacity>
+          <ModalAlert
+            open={isOpen}
+            setOpen={setIsOpen}
+            title={title}
+            textBody={textBody}
+            success={success}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -94,11 +134,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     top: 10,
     left: 10,
+    zIndex: 1
   },
   judul: {
     fontFamily: fonts.primary.bold,
     color: Colors.primary,
     fontSize: 18,
+    textAlign: 'center'
   },
   cardSignIn: {
     width: '100%',
