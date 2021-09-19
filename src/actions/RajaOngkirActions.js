@@ -4,20 +4,18 @@ import {
   API_RAJAONGKIR,
   API_TIMEOUT,
 } from '../utils/constant';
+import {
+  dispatchError,
+  dispatchLoading,
+  dispatchSuccess,
+} from '../utils/dispatch';
 
 export const GET_PROVINSI = 'GET_PROVINSI';
 export const GET_KOTA = 'GET_KOTA';
 
 export const getProvinsiList = () => dispatch => {
   //LOADING
-  dispatch({
-    type: GET_PROVINSI,
-    payload: {
-      loading: true,
-      data: [],
-      errorMessage: false,
-    },
-  });
+  dispatchLoading(dispatch, GET_PROVINSI);
 
   axios({
     method: 'get',
@@ -28,82 +26,48 @@ export const getProvinsiList = () => dispatch => {
     .then(response => {
       if (response.status !== 200) {
         // ERROR
-        dispatch({
-          type: GET_PROVINSI,
-          payload: {
-            loading: false,
-            data: [],
-            errorMessage: response,
-          },
-        });
+        dispatchError(dispatch, GET_PROVINSI, response);
       } else {
         // BERHASIL
-        dispatch({
-          type: GET_PROVINSI,
-          payload: {
-            loading: false,
-            data: response.data ? response.data.rajaongkir.results : [],
-            errorMessage: false,
-          },
-        });
+        dispatchSuccess(
+          dispatch,
+          GET_PROVINSI,
+          response.data ? response.data.rajaongkir.results : [],
+        );
       }
     })
     .catch(error => {
       // ERROR
-      dispatch({
-        type: GET_PROVINSI,
-        payload: {
-          loading: false,
-          data: false,
-          errorMessage: error,
-        },
-      });
+      dispatchError(dispatch, GET_PROVINSI, error);
     });
 };
 
-export const getKotaList = (provinsi_id) => dispatch => {
-  console.log(provinsi_id);
+export const getKotaList = provinsi_id => dispatch => {
   //LOADING
-  dispatch({
-    type: GET_KOTA,
-    payload: {
-      loading: true,
-      data: [],
-      errorMessage: false,
-    },
-  });
+  dispatchLoading(dispatch, GET_KOTA);
 
   axios({
     method: 'get',
-    url: API_RAJAONGKIR + 'city?province='+provinsi_id,
+    url: API_RAJAONGKIR + 'city?province=' + provinsi_id,
     timeout: API_TIMEOUT,
     headers: API_HEADER_RAJAONKIR,
   })
     .then(response => {
       if (response.status !== 200) {
         // ERROR
-        dispatch({
-          type: GET_KOTA,
-          payload: {
-            loading: false,
-            data: [],
-            errorMessage: response,
-          },
-        });
+        dispatchError(dispatch, GET_KOTA, response);
       } else {
         // BERHASIL
-        dispatch({
-          type: GET_KOTA,
-          payload: {
-            loading: false,
-            data: response.data ? response.data.rajaongkir.results : [],
-            errorMessage: false,
-          },
-        });
+        dispatchSuccess(
+          dispatch,
+          GET_KOTA,
+          response.data ? response.data.rajaongkir.results : [],
+        );
       }
     })
     .catch(error => {
       // ERROR
+      dispatchError(dispatch, GET_KOTA);
       dispatch({
         type: GET_KOTA,
         payload: {
@@ -112,6 +76,6 @@ export const getKotaList = (provinsi_id) => dispatch => {
           errorMessage: error,
         },
       });
-      alert(error)
+      alert(error);
     });
 };

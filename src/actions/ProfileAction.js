@@ -1,4 +1,9 @@
 import database from '@react-native-firebase/database';
+import {
+  dispatchError,
+  dispatchLoading,
+  dispatchSuccess,
+} from '../utils/dispatch';
 import {storeData} from '../utils/localStorage';
 
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
@@ -6,14 +11,7 @@ export const UPDATE_PROFILE = 'UPDATE_PROFILE';
 export const updateProfile = data => {
   return dispatch => {
     //LOADING
-    dispatch({
-      type: UPDATE_PROFILE,
-      payload: {
-        loading: true,
-        data: [],
-        errorMessage: false,
-      },
-    });
+    dispatchLoading(dispatch, UPDATE_PROFILE);
     // initial update data
     const dataBaru = {
       uid: data.uid,
@@ -32,28 +30,13 @@ export const updateProfile = data => {
       .update(dataBaru)
       .then(res => {
         //SUCCESS
-        dispatch({
-          type: UPDATE_PROFILE,
-          payload: {
-            loading: true,
-            data: res ? res : {},
-            errorMessage: false,
-          },
-        });
-
+        dispatchSuccess(dispatch, UPDATE_PROFILE, res ? res : {});
         //asyn storage
         storeData('user', dataBaru);
       })
       .catch(error => {
         // ERROR
-        dispatch({
-          type: UPDATE_PROFILE,
-          payload: {
-            loading: false,
-            data: false,
-            errorMessage: error.message,
-          },
-        });
+        dispatchError(dispatch, UPDATE_PROFILE, error.message);
         alert(error.message);
       });
   };

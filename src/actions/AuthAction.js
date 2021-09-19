@@ -1,5 +1,10 @@
 import auth from '@react-native-firebase/auth';
 import database from '@react-native-firebase/database';
+import {
+  dispatchError,
+  dispatchLoading,
+  dispatchSuccess,
+} from '../utils/dispatch';
 import {storeData} from '../utils/localStorage';
 
 export const REGISTER_USER = 'REGISTER_USER';
@@ -8,14 +13,8 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const registerUser = (data, password) => {
   return dispatch => {
     //LOADING
-    dispatch({
-      type: REGISTER_USER,
-      payload: {
-        loading: true,
-        data: false,
-        errorMessage: false,
-      },
-    });
+    dispatchLoading(dispatch, REGISTER_USER);
+    // firebase
     if ((data, password)) {
       auth()
         .createUserWithEmailAndPassword(data.email, password)
@@ -32,39 +31,19 @@ export const registerUser = (data, password) => {
             .set(dataBaru);
 
           //SUCCESS
-          dispatch({
-            type: REGISTER_USER,
-            payload: {
-              loading: true,
-              data: dataBaru,
-              errorMessage: false,
-            },
-          });
+          dispatchSuccess(dispatch, REGISTER_USER, dataBaru);
 
           //asyn storage
           storeData('user', dataBaru);
         })
         .catch(error => {
           // ERROR
-          dispatch({
-            type: REGISTER_USER,
-            payload: {
-              loading: false,
-              data: false,
-              errorMessage: error.message,
-            },
-          });
+          dispatchError(dispatch, error.message);
           alert(error.message);
         });
     } else {
-      dispatch({
-        type: REGISTER_USER,
-        payload: {
-          loading: false,
-          data: false,
-          errorMessage: false,
-        },
-      });
+      // error
+      dispatchError(dispatch, REGISTER_USER);
     }
   };
 };
