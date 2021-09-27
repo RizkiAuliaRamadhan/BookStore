@@ -2,6 +2,8 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import TabItem from '../TabItem';
 import {Colors} from '../../../utils';
+import { useDispatch } from 'react-redux';
+import { deleteReduxBooksByCategory } from '../../../actions/BookAction';
 
 function MyTabBar({state, descriptors, navigation}) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
@@ -9,6 +11,9 @@ function MyTabBar({state, descriptors, navigation}) {
   if (focusedOptions.tabBarVisible === false) {
     return null;
   }
+
+  // redux
+  const dispatch = useDispatch()
 
   return (
     <View style={styles.container}>
@@ -33,6 +38,11 @@ function MyTabBar({state, descriptors, navigation}) {
           if (!isFocused && !event.defaultPrevented) {
             navigation.navigate(route.name);
           }
+
+          if(route.name !== "ListBooks"){
+            dispatch(deleteReduxBooksByCategory())
+          }
+
         };
 
         const onLongPress = () => {

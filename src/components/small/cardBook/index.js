@@ -13,7 +13,7 @@ const CardBook = ({list, warna, navigation}) => {
   return (
     <TouchableOpacity style={styles.listBook} onPress={() => {navigation.navigate("BookDetail", {list})}}>
       <View style={styles.wrapperImage(warna)}>
-        <Image source={list.image[0]} style={styles.image} resizeMode="center" />
+        <Image source={{uri: list.image[0]}} style={styles.image} resizeMode="center" />
       </View>
       <Text style={styles.text}>{list.name}</Text>
       <Text style={styles.text}>Rp. {formatNumber(list.harga)}</Text>

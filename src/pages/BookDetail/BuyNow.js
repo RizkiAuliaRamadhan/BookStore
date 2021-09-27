@@ -44,7 +44,7 @@ const BuyNow = ({route, navigation}) => {
           </View>
           <View style={styles.imageWrapp(rndInt)}>
             <Image
-              source={list.image[array]}
+              source={{uri: list.image[array]}}
               style={styles.image}
               resizeMode="center"
             />

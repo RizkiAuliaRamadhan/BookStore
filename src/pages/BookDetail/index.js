@@ -39,7 +39,7 @@ const BookDetail = ({route, navigation}) => {
           </View>
           <View style={styles.imageWrapp(rndInt)}>
             <Image
-              source={list.image[array]}
+              source={{uri: list.image[array]}}
               style={styles.image}
               resizeMode="center"
             />
@@ -55,7 +55,7 @@ const BookDetail = ({route, navigation}) => {
                     setArray(index);
                   }}>
                   <Image
-                    source={data}
+                    source={{uri: data}}
                     style={styles.imageSmall}
                     resizeMode="center"
                   />
@@ -81,7 +81,7 @@ const BookDetail = ({route, navigation}) => {
           <Jarak height={5} />
           <View>
             <Text style={styles.text2}>Deskripsi :</Text>
-            <Text style={styles.text2}>{list.description}</Text>
+            <Text style={styles.text2}>{list.des}</Text>
             <Jarak height={55} />
           </View>
         </View>

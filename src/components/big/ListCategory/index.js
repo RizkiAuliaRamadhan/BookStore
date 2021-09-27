@@ -2,11 +2,11 @@ import React from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 import List from '../../small/List';
 
-const ListCategory = ({list}) => {
+const ListCategory = ({list, navigation}) => {
   return (
     <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-      {list.map(category => {
-        return <List category={category} key={category.id} />;
+      {Object.keys(list).map(key => {
+        return <List category={list[key]} key={key} navigation={navigation} id={key} />;
       })}
     </ScrollView>
   );

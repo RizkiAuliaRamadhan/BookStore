@@ -1,0 +1,110 @@
+{
+    "books": {
+        "-MKQAIIU1ZQIL5ZHEqFE": {
+            "name": "Al Quran Madinah",
+            "image": ["coba.jpg", "coba1.jpg"],
+            "book": "-MKKtTxsG58wrXrDIrAV",
+            "harga": 60000,
+            "berat": 0.5,
+            "stock": 5,
+            "ready": true,
+            "des": "Ready Silahkan Diorder !!"
+        },
+        "-MKQARaiDnX5T4EsfneX": {
+            "name": "Aqidah islamiah",
+            "image": ["coba.jpg", "coba1.jpg"],
+            "book": "-MKKx7xcV0S6Rf1cZkE5",
+            "harga": 80000,
+            "berat": 0.7,
+            "stock": 5,
+            "ready": true,
+            "des": "Ready Silahkan Diorder !!"
+        },
+        "-MKQARaiDnX5T4EsfnbF": {
+            "name": "Pembatal Keislaman",
+            "image": ["coba.jpg", "coba1.jpg"],
+            "book": "-MKKx7xcV0S6Rf1cZkE5",
+            "harga": 40000,
+            "berat": 0.4,
+            "stock": 5,
+            "ready": true,
+            "des": "Ready Silahkan Diorder !!"
+        },
+        "-MKZQdJadnKhlX0jAHT8": {
+            "name": "Akhlaq Anak",
+            "image": ["coba.jpg", "coba1.jpg"],
+            "book": "-MKKwigoURfIh8-l1jie",
+            "harga": 40000,
+            "berat": 0.3,
+            "stock": 5,
+            "ready": true,
+            "des": "Ready Silahkan Diorder !!"
+        },
+        "-MKZWGPpxitfyybJK1PL": {
+            "name": "Fiqih",
+            "image": ["coba.jpg", "coba1.jpg"],
+            "book": "-MKNsDUz1Xf74q0PWFf9",
+            "harga": 70000,
+            "berat": 0.6,
+            "stock": 5,
+            "ready": true,
+            "des": "Ready Silahkan Diorder !!"
+        },
+        "-MKZWGPpxitfyybJK1RD": {
+            "name": "Bulughul Maram",
+            "image": ["coba.jpg", "coba1.jpg"],
+            "book": "-MKNsDUz1Xf74q0PWFf9",
+            "harga": 100000,
+            "berat": 0.9,
+            "stock": 5,
+            "ready": true,
+            "des": "Ready Silahkan Diorder !!"
+        },
+        "-MKiMo58Dv77kTGoq0TJ": {
+            "name": "Durusullughah",
+            "image": ["coba.jpg", "coba1.jpg"],
+            "book" : "random5",
+            "harga": 60000,
+            "berat": 0.6,
+            "stock": 5,
+            "ready": true,
+            "des": "Ready Silahkan Diorder !!"
+        },
+        "-MKiO-Q8bVkkL51g-YH3": {
+            "name": "Sirah Nabawiah",
+            "image": ["coba.jpg", "coba1.jpg"],
+            "book" : "random6",
+            "harga": 60000,
+            "berat": 0.6,
+            "stock": 5,
+            "ready": true,
+            "des": "Ready Silahkan Diorder !!"
+        }
+    },
+    "category": {
+        "-MKKtTxsG58wrXrDIrAV": {
+            "name": "alquran",
+            "gambar": "sd"
+        },
+        "-MKKx7xcV0S6Rf1cZkE5": {
+            "name": "aqidah",
+            "gambar": "sd"
+        },
+        "-MKKwigoURfIh8-l1jie": {
+            "name": "akhlaq",
+            "gambar": "sd"
+        },
+        "-MKNsDUz1Xf74q0PWFf9": {
+            "name": "fiqih",
+            "gambar": "sd"
+        },
+        "random5": {
+            "name": "bahasa",
+            "gambar": "sd"
+        },
+        "random6": {
+            "name": "sirah",
+            "gambar": "sd"
+        }
+    }
+}

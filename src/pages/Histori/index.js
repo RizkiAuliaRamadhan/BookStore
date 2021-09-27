@@ -5,7 +5,7 @@ import { DummyCart } from '../../data/DummyCart'
 import { Colors, fonts, responsiveWidth, responsiveHeight } from '../../utils'
 
 
-const Histori = () => {
+const Histori = ({navigation}) => {
     const [pesanan, setPesanan] = useState(DummyCart)
     return (
         <View style={styles.container}>
