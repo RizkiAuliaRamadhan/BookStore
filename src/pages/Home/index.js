@@ -35,8 +35,8 @@ const HomeScreen = ({navigation}) => {
     const unsubscribe = navigation.addListener('focus', () => {
       // do something
       dispatch(getListBooksLimits());
-      dispatch(getCategory());
     });
+    dispatch(getCategory());
 
     return unsubscribe;
   }, [navigation]);

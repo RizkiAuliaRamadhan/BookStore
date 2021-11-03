@@ -33,7 +33,8 @@ export const getListBooks = (id, keyword) => {
       database()
         .ref('books')
         .orderByChild('name')
-        .equalTo(keyword)
+        .startAt(keyword)
+        .endAt(keyword + "\uf8ff")
         .once('value', querySnapsot => {
           // hasil
           let data = querySnapsot.val() ? querySnapsot.val() : [];

@@ -22,7 +22,6 @@ class ListBooks extends Component {
 
   componentDidMount() {
     this._unsubscribe = this.props.navigation.addListener('focus', () => {
-      this.props.dispatch(getCategory());
       if (this.props.keyBook) {
         this.props.dispatch(
           getListBooks(this.props.keyBook, this.props.keyword),
@@ -35,6 +34,7 @@ class ListBooks extends Component {
         this.props.dispatch(getListBooks());
       }
     });
+    this.props.dispatch(getCategory());
   }
 
   componentWillUnmount() {
@@ -47,7 +47,7 @@ class ListBooks extends Component {
       this.props.dispatch(getListBooks(keyBook, keyword));
     }
     if (keyword && prevProps.keyword !== keyword) {
-      this.props.dispatch(getListBooks(keyBook,keyword));
+      this.props.dispatch(getListBooks(keyBook, keyword));
     }
   }
 
